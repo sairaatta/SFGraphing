@@ -71,9 +71,8 @@ void SFPieChart::GenerateVertices()
         /*
          * Pie Legend
          */
-        //sf::Text text; // Fails in SFML 3.0
-        //text.setFont(_font); // Fails in SFML 3.0
-        sf::Text text(_font);
+        sf::Text text;
+        text.setFont(_font);
         std::string label;
         if (_dataset.GetRepresentation() == Representation::ABSOLUTE)
         {
@@ -90,8 +89,7 @@ void SFPieChart::GenerateVertices()
         text.setCharacterSize(static_cast<unsigned int>(charSize));
 
         sf::FloatRect fr = text.getLocalBounds();
-        // text.move(0, i * fr.height * 1.2f); // Fails in SFML 3.0
-        text.move(sf::Vector2f(0, i * fr.size.y * 1.2f)); // Works in SFML 3.0
+        text.move(0, i * fr.height * 1.2f);
 
         _textElements.push_back(text);
     }

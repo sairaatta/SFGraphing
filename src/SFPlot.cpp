@@ -130,8 +130,7 @@ void SFPlot::GenerateVertices()
     /*
      * Calculating axes themselves
      */
-    //_axesVertexArray.setPrimitiveType(sf::LineStrip); // Fails in SFML 3.0.0
-    _axesVertexArray.setPrimitiveType(sf::PrimitiveType::LineStrip); // Works in SFML 3.0.0
+    _axesVertexArray.setPrimitiveType(sf::LineStrip);
     //Topleft
     _axesVertexArray.append(sf::Vertex(CoordToWindowPosition(sf::Vector2f(0, _yCoordBounds.y)), _axesColor));
     //Origin
@@ -142,29 +141,26 @@ void SFPlot::GenerateVertices()
     /*
      * Axis Labels
      */
-    sf::Text xaxislabel(_font); // Does work in SFML 3.0
-    //sf::Text xaxislabel; // Does not work in SFML 3.0
-    //xaxislabel.setFont(_font); // Does not work in SFML 3.0
+    sf::Text xaxislabel;
+    xaxislabel.setFont(_font);
     xaxislabel.setCharacterSize(characterSize);
     xaxislabel.setFillColor(_axesColor);
     xaxislabel.setString(_xAxisLabel);
 
     xaxislabel.setPosition(CoordToWindowPosition(sf::Vector2f(_xCoordBounds.y, 0)) + sf::Vector2f(_margin * 0.3f, 0));
 
-    xaxislabel.rotate(sf::degrees(-90)); // Does work in SFML 3.0.0
-    // xaxislabel.rotate(-90); // Does not work in SFML 3.0.0
+    xaxislabel.rotate(-90);
 
     _textElementArray.push_back(xaxislabel);
 
     //------
-    sf::Text yaxislabel(_font);
-    //sf::Text yaxislabel;  // Does not work in SFML 3.0.0
-    //yaxislabel.setFont(_font); // Does not work in SFML 3.0.0
+    sf::Text yaxislabel;
+    yaxislabel.setFont(_font);
     yaxislabel.setCharacterSize(characterSize);
     yaxislabel.setFillColor(_axesColor);
     yaxislabel.setString(_yAxisLabel);
 
-    yaxislabel.setPosition(sf::Vector2f(_origin.x, _origin.y));
+    yaxislabel.setPosition(_origin.x, _origin.y);
 
     _textElementArray.push_back(yaxislabel);
 
@@ -183,9 +179,9 @@ void SFPlot::GenerateVertices()
             sf::Vertex(sf::Vector2f(windowPosition.x, windowPosition.y + (_margin * 0.25f)), _axesColor));
 
         //text
-        sf::Text indicatorText(_font);
+        sf::Text indicatorText;
         indicatorText.setCharacterSize(characterSize);
-        //indicatorText.setFont(_font);
+        indicatorText.setFont(_font);
         indicatorText.setString(ToString(x, 2));
         indicatorText.setFillColor(_axesColor);
 
